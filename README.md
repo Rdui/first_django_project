@@ -1,7 +1,8 @@
 Project plan
 ==================
 
-#2 Project description:
+Project description:
+____________________________
 Online game store for JavaScript games
 
 Technologies:
@@ -15,7 +16,7 @@ Juho Vähätalo, juho.vahatalo@student.tut.fi, 240549
 Rudi Ritosalo, rudi.ritosalo@student.tut.fi, 240111
 
 
-Implementation of features
+#2 Implementation of features
 
 Authentication
 ____________________________
@@ -65,6 +66,6 @@ Implementation order / Timetable
 8. Plan and implement the payment service
 9. Plan the optional features
 10. Implement optional features
-*   Update plan/trello
+* Update plan/trello
 (*timeless)
 
