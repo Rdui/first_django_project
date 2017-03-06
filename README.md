@@ -1,10 +1,12 @@
       Project plan
-================================
+____________________________
 
 Project description:
+____________________________
 Online game store for JavaScript games
 
 Technologies:
+____________________________
 Django, JavaScript, HTML5, CSS, Bootstrap
 
 Group Webornio:
@@ -53,17 +55,17 @@ We will meet face-to-face as a group at least 1-2 times a week. We will use Trel
 
 Implementation order / Timetable
 ---------------------------------------
-Get to know to the project and plan the project
-Get the tools&enviroment ready for all participants
-Setup the project
-Model for users and views for login and registeration
-Plan all the models
-Implement models in a logical order
-Plan and implement view for gamelisting and game description
-Plan and implement the payment service
-Plan the optional features
-Implement optional features
-     *Update plan/trello
+*Get to know to the project and plan the project
+*Get the tools&enviroment ready for all participants
+*Setup the project
+*Model for users and views for login and registeration
+*Plan all the models
+*Implement models in a logical order
+*Plan and implement view for gamelisting and game description
+*Plan and implement the payment service
+*Plan the optional features
+*Implement optional features
+*Update plan/trello
 
-(*timeless)
+*(*timeless)
 
