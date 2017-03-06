@@ -1,3 +1,4 @@
+
 Project plan
 ==================
 
@@ -16,7 +17,8 @@ Juho Vähätalo, juho.vahatalo@student.tut.fi, 240549
 Rudi Ritosalo, rudi.ritosalo@student.tut.fi, 240111
 
 
-#2 Implementation of features
+## Implementation of features
+
 
 Authentication
 ____________________________
