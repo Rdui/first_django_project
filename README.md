@@ -10,10 +10,10 @@ Online game store for JavaScript games
 Django, JavaScript, HTML5, CSS, Bootstrap
 
 Group Webornio:
-Henrik Hartiala, henrik.hartiala@student.tut.fi, 211528
-Tommi Nikula, tommi.nikula@student.tut.fi, 240341
-Juho Vähätalo, juho.vahatalo@student.tut.fi, 240549
-Rudi Ritosalo, rudi.ritosalo@student.tut.fi, 240111
+* Henrik Hartiala, henrik.hartiala@student.tut.fi, 211528
+* Tommi Nikula, tommi.nikula@student.tut.fi, 240341
+* Juho Vähätalo, juho.vahatalo@student.tut.fi, 240549
+* Rudi Ritosalo, rudi.ritosalo@student.tut.fi, 240111
 
 
 ## Implementation of features
