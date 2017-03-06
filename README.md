@@ -2,12 +2,11 @@
 Project plan
 ==================
 
-Project description:
-____________________________
+## Project description:
+
 Online game store for JavaScript games
 
-Technologies:
-____________________________
+## Technologies:
 Django, JavaScript, HTML5, CSS, Bootstrap
 
 Group Webornio:
@@ -20,8 +19,7 @@ Rudi Ritosalo, rudi.ritosalo@student.tut.fi, 240111
 ## Implementation of features
 
 
-Authentication
-____________________________
+### Authentication
 Different kind of users are implemented by extending Django’s default User model. User types include player and developer. 
 Views: registration and logging in.
 
