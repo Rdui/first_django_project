@@ -66,6 +66,6 @@ Implementation order / Timetable
 8. Plan and implement the payment service
 9. Plan the optional features
 10. Implement optional features
- *Update plan/trello
-(*timeless)
+ 
+*Update plan/trello(timeless)*
 
