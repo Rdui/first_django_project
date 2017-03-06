@@ -9,7 +9,7 @@ Online game store for JavaScript games
 ## Technologies:
 Django, JavaScript, HTML5, CSS, Bootstrap
 
-Group Webornio:
+## Group Webornio:
 * Henrik Hartiala, henrik.hartiala@student.tut.fi, 211528
 * Tommi Nikula, tommi.nikula@student.tut.fi, 240341
 * Juho Vähätalo, juho.vahatalo@student.tut.fi, 240549
