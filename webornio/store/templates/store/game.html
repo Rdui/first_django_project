@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title>Oolannin sota</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <style>
+  body {
+    margin:0px;
+    padding:0px;
+    text-align:center;
+	background: RGB(0, 0, 96);
+  }
+
+  canvas{
+    margin-left: auto;
+    margin-right: auto;
+	border:0;
+	background: RGB(0, 0, 96);
+  }
+
+  #game{
+    margin-left: auto;
+    margin-right: auto;
+    width:100%;
+    height:100%;
+  }
+  </style>
+  </head>
+  <body>
+    <iframe id="game" src="{{ game_url }}"></iframe>
+    <script>
+
+    // using jQuery
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    //set token to request header:
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $(window).on("message", function(event){
+      var data = event.originalEvent.data;
+      console.log(data);
+
+      if (data.messageType == "SCORE"){
+        //save score
+      }else if (data.messageType == "SAVE"){
+
+        $.ajax({
+          type: "POST",
+          url: "../../api/games/save/",
+          data: {
+            "gameState": data.gameState,
+            "gameId": {{game_id}}
+          }
+        });
+
+      }else if (data.messageType == "LOAD_REQUEST"){
+        //get save from db
+        var message = {
+          messageType: "LOAD",
+          gameState: "{\"a\":\"TALLENNUS DATA :D\"}"
+        }
+        $("#game")[0].contentWindow.postMessage(message, "*");
+      }else if (data.messageType == "SETTING"){
+
+      }
+    });
+
+      $("#game").on("load", function(){
+        //LOAD
+        console.log("MOO");
+        //$("#game")[0].contentWindow.postMessage(message, "*");
+      })
+    </script>
+  </body>
+</html>
