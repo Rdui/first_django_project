@@ -66,6 +66,7 @@
 
       if (data.messageType == "SCORE"){
         //save score
+        console.log("HIGH SCORE: " + data.score)
       }else if (data.messageType == "SAVE"){
 
         $.ajax({
@@ -79,11 +80,18 @@
 
       }else if (data.messageType == "LOAD_REQUEST"){
         //get save from db
-        var message = {
-          messageType: "LOAD",
-          gameState: "{\"a\":\"TALLENNUS DATA :D\"}"
-        }
-        $("#game")[0].contentWindow.postMessage(message, "*");
+        $.get("../../api/games/load/" + {{game_id}}, function(data, status){
+            if (status == "success"){
+                var message = {
+                  messageType: "LOAD",
+                  gameState: data
+                }
+                $("#game")[0].contentWindow.postMessage(message, "*");
+            }else{
+              //TODO: error message
+            }
+        });
+
       }else if (data.messageType == "SETTING"){
 
       }

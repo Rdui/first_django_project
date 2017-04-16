@@ -6,6 +6,8 @@ from .models import Game, SaveGame, Player
 from django.http import HttpResponse
 from django.template import RequestContext
 
+import json
+
 from django.views.decorators.csrf import ensure_csrf_cookie
 @ensure_csrf_cookie
 
@@ -39,3 +41,19 @@ def save(request):
             return HttpResponse(status=200)
         else:
             return HttpResponse(status=403)
+
+def load(request, gameId):
+    if request.user.is_authenticated():
+        game = Game.objects.get(id=gameId)
+        userId = request.user.id
+        user = Player.objects.get(id=userId)
+
+        saveObj = SaveGame.objects.filter(player=user, game=game)
+        if (saveObj.exists()):
+            print(saveObj[0].gameState)
+            response = saveObj[0].gameState
+            return HttpResponse(response)
+        else:
+            return HttpResponse(status=404)
+    else:
+        return HttpResponse(status=403)
