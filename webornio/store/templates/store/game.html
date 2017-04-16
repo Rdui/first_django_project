@@ -73,7 +73,7 @@
           type: "POST",
           url: "../../api/games/save/",
           data: {
-            "gameState": data.gameState,
+            "gameState": JSON.stringify(data.gameState),
             "gameId": {{game_id}}
           }
         });
@@ -82,9 +82,10 @@
         //get save from db
         $.get("../../api/games/load/" + {{game_id}}, function(data, status){
             if (status == "success"){
+                console.log(data);
                 var message = {
                   messageType: "LOAD",
-                  gameState: data
+                  gameState: JSON.parse(data)
                 }
                 $("#game")[0].contentWindow.postMessage(message, "*");
             }else{

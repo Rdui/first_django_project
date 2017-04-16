@@ -33,8 +33,7 @@ def save(request):
 
             saveObj = SaveGame.objects.filter(player=user, game=game)
             if (saveObj.exists()):
-                saveObj.gameState = data["gameState"]
-                saveObj.update()
+                saveObj.update(gameState=data["gameState"])
             else:
                 saveObj = SaveGame(player=user, game=game, gameState=data["gameState"])
                 saveObj.save()
