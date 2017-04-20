@@ -56,3 +56,8 @@ def load(request, gameId):
             return HttpResponse(status=404)
     else:
         return HttpResponse(status=403)
+
+def login(request):
+    return HttpResponse("Hei maailma, katsot login.")
+def logout(request):
+    return HttpResponse("Hei maailma, katsot logout indeksiä.")
