@@ -1,0 +1,25 @@
+{% extends 'store/base.html' %}
+{% block content %}
+Hei, osta peli hintaan {{game.price}} euroa.
+{% csrf_token %}
+
+<form action="https://simplepayments.herokuapp.com/pay/" method="POST">
+    <input type="hidden" name="pid" value="{{buy_data.pid}}" />
+    <input type="hidden" name="sid" value="{{buy_data.sid}}" />
+    <input type="hidden" name="success_url"
+            value="http://localhost:8000/store/games/buy/success" />
+    <input type="hidden" name="cancel_url"
+            value="http://localhost:8000/store/games/buy/cancel" />
+    <input type="hidden" name="error_url"
+            value="http://localhost:8000/store/games/buy/error" />
+    <input type="hidden" name="checksum"
+            value="{{buy_data.checksum}}" />
+    <input type="hidden" name="amount" value="{{buy_data.amount}}"/>
+    <input type="submit" value="Buy game"/>
+</form>
+
+<script>
+
+</script>
+
+{% endblock %}
