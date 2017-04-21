@@ -1,31 +1,5 @@
-<html>
-  <head>
-    <title>Oolannin sota</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <style>
-  body {
-    margin:0px;
-    padding:0px;
-    text-align:center;
-	background: RGB(0, 0, 96);
-  }
-
-  canvas{
-    margin-left: auto;
-    margin-right: auto;
-	border:0;
-	background: RGB(0, 0, 96);
-  }
-
-  #game{
-    margin-left: auto;
-    margin-right: auto;
-    width:100%;
-    height:100%;
-  }
-  </style>
-  </head>
-  <body>
+{% extends base.html %}
+{% block content %}
     <iframe id="game" src="{{ game_url }}"></iframe>
     <script>
 
@@ -104,5 +78,4 @@
         //$("#game")[0].contentWindow.postMessage(message, "*");
       })
     </script>
-  </body>
-</html>
+{% endblock %}

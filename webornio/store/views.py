@@ -18,7 +18,7 @@ def index(request):
     context = RequestContext(request, {'game_url': url, 'game_id': game_id})
 
     return HttpResponse(template.render(context))
-    
+
 def game(request, game_id):
     #Check if the user is authenticated and owns the game
     if request.user.is_authenticated():
@@ -30,21 +30,16 @@ def game(request, game_id):
         url = game_entry.url
         template = loader.get_template('store/game.html')
         context = RequestContext(request, {'game_url': url, 'game_id': game_id})
+        return HttpResponse(template.render(context))
+    else:
+        return redirect('login')
 
-<<<<<<< HEAD
-    return HttpResponse(template.render(context))
 def games(request):
     games = Game.objects.all()
     template = loader.get_template("store/games.html")
     context = RequestContext(request, {'games': games})
 
     return HttpResponse(template.render(context))
-
-=======
-        return HttpResponse(template.render(context))
-    else:
-        return redirect('login')
->>>>>>> 479b20c922f9e5bc8799ef74f267b05111133c71
 
 def save(request):
     if request.method == "POST":
