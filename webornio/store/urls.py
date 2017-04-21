@@ -11,6 +11,9 @@ urlpatterns = [
     url(r'^api/games/load/(?P<gameId>[0-9]+)/$', views.load, name='load'),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^profile/$', views.profile, name='profile'),
+    url(r'^games/$', views.games, name='games')
+
     #url(r'^admin/', admin.site.urls),
 
 ]

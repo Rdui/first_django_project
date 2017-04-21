@@ -13,8 +13,11 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def index(request):
-    return HttpResponse("Hei maailma, katsot storen indeksiä.")
+    template = loader.get_template('store/home.html')
+    context = RequestContext(request, {'game_url': url, 'game_id': game_id})
 
+    return HttpResponse(template.render(context))
+    
 def game(request, game_id):
     game_entry = Game.objects.get(id=game_id)
     url = game_entry.url
@@ -22,6 +25,13 @@ def game(request, game_id):
     context = RequestContext(request, {'game_url': url, 'game_id': game_id})
 
     return HttpResponse(template.render(context))
+def games(request):
+    games = Game.objects.all()
+    template = loader.get_template("store/games.html")
+    context = RequestContext(request, {'games': games})
+
+    return HttpResponse(template.render(context))
+
 
 def save(request):
     if request.method == "POST":
@@ -61,3 +71,9 @@ def login(request):
     return HttpResponse("Hei maailma, katsot login.")
 def logout(request):
     return HttpResponse("Hei maailma, katsot logout indeksiä.")
+
+def profile(request):
+    template = loader.get_template('store/profile.html')
+    context = RequestContext(request, {'user': request.user})
+
+    return HttpResponse(template.render(context))
