@@ -5,7 +5,6 @@ from .models import Game, SaveGame, Player, Sale
 
 from django.http import HttpResponse
 from django.template import RequestContext
-from django.shortcuts import redirect
 
 import json
 
@@ -24,6 +23,7 @@ def game(request, game_id):
     if request.user.is_authenticated():
         saleObj = Sale.objects.filter(id=request.user.id, game=game_id)
         if not saleObj.exists():
+            alert('et omista')
             return HttpResponse('et omista ko. peliä')
 
         game_entry = Game.objects.get(id=game_id)
@@ -32,7 +32,7 @@ def game(request, game_id):
         context = RequestContext(request, {'game_url': url, 'game_id': game_id})
         return HttpResponse(template.render(context))
     else:
-        return redirect('login')
+        return HttpResponse('Et omista ko. peliä')
 
 def games(request):
     games = Game.objects.all()
