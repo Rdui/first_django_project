@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^api/games/buy$', views.send_buy, name='buy'),
     url(r'^developer/$', views.devgames, name='developer'),
     url(r'^developer/game/(?P<game_id>[0-9]+)/$', views.devgame, name='devgame'),
-    url(r'^developer/game/modify/(?P<game_id>[0-9]+)$', views.modifygame, name='modifygame')
+    url(r'^developer/game/modify/$', views.modifygame, name='modifygame')
     #url(r'^admin/', admin.site.urls),
 
 ]

@@ -1,0 +1,14 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<ul>
+  <li>
+    Hello, developer {{user.id}}
+    <ul>
+      {% for game in games %}
+      <li>
+        <a href="/store/developer/game/{{game.id}}">{{game.name}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </li>
+{% endblock %}
