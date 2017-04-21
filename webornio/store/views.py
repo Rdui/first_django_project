@@ -1,10 +1,11 @@
 #-*- coding:UTF-8 -*-
 from django.shortcuts import render
 from django.template import loader
-from .models import Game, SaveGame, Player
+from .models import Game, SaveGame, Player, Sale
 
 from django.http import HttpResponse
 from django.template import RequestContext
+from django.shortcuts import redirect
 
 import json
 
@@ -16,12 +17,20 @@ def index(request):
     return HttpResponse("Hei maailma, katsot storen indeksiä.")
 
 def game(request, game_id):
-    game_entry = Game.objects.get(id=game_id)
-    url = game_entry.url
-    template = loader.get_template('store/game.html')
-    context = RequestContext(request, {'game_url': url, 'game_id': game_id})
+    #Check if the user is authenticated and owns the game
+    if request.user.is_authenticated():
+        saleObj = Sale.objects.filter(id=request.user.id, game=game_id)
+        if not saleObj.exists():
+            return HttpResponse('et omista ko. peliä')
 
-    return HttpResponse(template.render(context))
+        game_entry = Game.objects.get(id=game_id)
+        url = game_entry.url
+        template = loader.get_template('store/game.html')
+        context = RequestContext(request, {'game_url': url, 'game_id': game_id})
+
+        return HttpResponse(template.render(context))
+    else:
+        return redirect('login')
 
 def save(request):
     if request.method == "POST":
