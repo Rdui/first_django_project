@@ -5,6 +5,7 @@ from .models import Game, SaveGame, Player, Sale, Developer
 
 from django.http import HttpResponse
 from django.template import RequestContext
+from django.shortcuts import redirect
 
 from django.shortcuts import redirect
 
@@ -37,7 +38,7 @@ def game(request, game_id):
         context = RequestContext(request, {'game_url': url, 'game_id': game_id})
         return HttpResponse(template.render(context))
     else:
-        return HttpResponse('Et omista ko. peliä')
+        return redirect('login')
 
 def games(request):
     games = Game.objects.all()
@@ -45,6 +46,26 @@ def games(request):
     context = RequestContext(request, {'games': games})
 
     return HttpResponse(template.render(context))
+
+def devgames(request):
+    developer = Developer.objects.get(user=request.user.id)
+    games = Game.objects.filter(developer=developer)
+    template = loader.get_template("store/developer.html")
+    context = RequestContext(request, {'games': games, 'user': request.user})
+    return HttpResponse(template.render(context))
+
+def devgame(request, game_id):
+    if request.user.is_authenticated():
+        game = Game.objects.get(id = game_id)
+        developer = Developer.objects.get(user=request.user.id)
+        if game.developer == developer:
+            template = loader.get_template("store/devgame.html")
+            context = RequestContext(request, {'user': request.user, 'game': game})
+            return HttpResponse(template.render(context))
+        return HttpResponse('Ei oo sun peli')
+
+def modifygame(request):
+    return HttpResponse('kei')
 
 def save(request):
     if request.method == "POST":
