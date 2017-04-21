@@ -12,8 +12,10 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^profile/$', views.profile, name='profile'),
-    url(r'^games/$', views.games, name='games')
-
+    url(r'^games/$', views.games, name='games'),
+    url(r'^developer/$', views.devgames, name='developer'),
+    url(r'^developer/game/(?P<game_id>[0-9]+)/$', views.devgame, name='devgame'),
+    url(r'^developer/game/modify/(?P<game_id>[0-9]+)$', views.modifygame, name='modifygame')
     #url(r'^admin/', admin.site.urls),
 
 ]

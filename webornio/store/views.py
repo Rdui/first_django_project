@@ -1,7 +1,7 @@
 #-*- coding:UTF-8 -*-
 from django.shortcuts import render
 from django.template import loader
-from .models import Game, SaveGame, Player, Sale
+from .models import Game, SaveGame, Player, Sale, Developer
 
 from django.http import HttpResponse
 from django.template import RequestContext
@@ -40,6 +40,26 @@ def games(request):
     context = RequestContext(request, {'games': games})
 
     return HttpResponse(template.render(context))
+
+def devgames(request):
+    developer = Developer.objects.get(user=request.user.id)
+    games = Game.objects.filter(developer=developer)
+    template = loader.get_template("store/developer.html")
+    context = RequestContext(request, {'games': games, 'user': request.user})
+    return HttpResponse(template.render(context))
+
+def devgame(request, game_id):
+    if request.user.is_authenticated():
+        game = Game.objects.get(id = game_id)
+        developer = Developer.objects.get(user=request.user.id)
+        if game.developer == developer:
+            template = loader.get_template("store/devgame.html")
+            context = RequestContext(request, {'user': request.user, 'game': game})
+            return HttpResponse(template.render(context))
+        return HttpResponse('Ei oo sun peli')
+
+def modifygame(request):
+    return HttpResponse('kei')
 
 def save(request):
     if request.method == "POST":
