@@ -12,7 +12,11 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^profile/$', views.profile, name='profile'),
-    url(r'^games/$', views.games, name='games')
+    url(r'^games/$', views.games, name='games'),
+    url(r'^games/buy/(?P<game_id>[0-9]+)/$', views.buy_game, name='buy_game'),
+    url(r'^api/games/buy$', views.send_buy, name='buy'),
+
+
     #url(r'^admin/', admin.site.urls),
 
 ]
