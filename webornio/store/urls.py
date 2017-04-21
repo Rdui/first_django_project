@@ -14,10 +14,13 @@ urlpatterns = [
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^games/$', views.games, name='games'),
     url(r'^games/buy/(?P<game_id>[0-9]+)/$', views.buy_game, name='buy_game'),
-    url(r'^api/games/buy$', views.send_buy, name='buy'),
     url(r'^developer/$', views.devgames, name='developer'),
     url(r'^developer/game/(?P<game_id>[0-9]+)/$', views.devgame, name='devgame'),
-    url(r'^developer/game/modify/(?P<game_id>[0-9]+)$', views.modifygame, name='modifygame')
-    #url(r'^admin/', admin.site.urls),
+    url(r'^developer/game/modify/(?P<game_id>[0-9]+)$', views.modifygame, name='modifygame'),
+    url(r'^games/buy/success/$', views.buy_success, name='buy_success'),
+    url(r'^games/buy/cancel/$', views.buy_cancel, name='buy_cancel'),
+    url(r'^games/buy/error/$', views.buy_error, name='buy_error'),
 
+
+    #url(r'^admin/', admin.site.urls),
 ]
