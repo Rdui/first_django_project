@@ -13,7 +13,6 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^games/$', views.games, name='games')
-
     #url(r'^admin/', admin.site.urls),
 
 ]
