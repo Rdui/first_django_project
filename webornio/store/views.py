@@ -28,7 +28,8 @@ def index(request):
 def game(request, game_id):
     #Check if the user is authenticated and owns the game
     if request.user.is_authenticated():
-        saleObj = Sale.objects.filter(id=request.user.id, game=game_id)
+        player = Player.objects.get(user=request.user.id)
+        saleObj = Sale.objects.filter(player=player.id, game=game_id)
         if not saleObj.exists():
             return redirect("/store/games/buy/" + game_id)
 
@@ -127,7 +128,7 @@ def buy_game(request, game_id):
     game = game_entry
     developer = game.developer
     secret_key = "f783295fc61ae6f4c9c06ac78a61e33f"
-    pid = request.user.id   #TODO: vaihda yksilölliseen payment id:seen.
+    pid = game_id   #TODO: vaihda yksilölliseen payment id:seen.
     sid = "webornio"
     amount = game.price
     # checksumstr is the string concatenated above
@@ -151,37 +152,21 @@ def buy_game(request, game_id):
 
     return HttpResponse(template.render(context))
 
-def send_buy(request):
-    if not request.user.is_authenticated:
-        return HttpResponse(status=403)
-    if request.method == "POST":
-        data = request.POST
-        print (data)
-        game = Game.objects.get(id=data["game_id"])
-        developer = game.developer
-        secret_key = "f783295fc61ae6f4c9c06ac78a61e33f"
-        pid = request.user.id
-        sid = developer.id
-        amount = game.price
-        # checksumstr is the string concatenated above
-        checksumstr = "pid={}&sid={}&amount={}&token={}".format(pid, sid, amount, secret_key)
 
-        #seller id: webornio
-        m = md5(checksumstr.encode("ascii"))
-        checksum = str(m.hexdigest())
+def buy_success(request):
+    pid = request.GET.get("pid")
+    result = request.GET.get("result")
+    #TODO: tarkista checksum
+    if (result == "success"):
+        game_entry = Game.objects.get(id=pid)
+        player = Player.objects.get(user=request.user.id)
+        purchase = Sale(game=game_entry, player=player, price=game_entry.price)
+        purchase.save()
+        return redirect("/store/games/" + str(game_entry.id))
+    return HttpResponse("Ostaminen epäonnistui")
 
-        # checksum is the value that should be used in the payment request
-        postdata = {
-            "pid": pid,
-            "sid": sid,
-            "amount": amount,
-            "success_url": "localhost:8000/store/success",
-            "cancel_url": "localhost:8000/store/cancel",
-            "error_url": "localhost:8000/store/error",
-            "checksum": checksum
-        }
-        r = requests.post("https://simplepayments.herokuapp.com/pay/", data=postdata)
+def buy_cancel(request):
+    pass
 
-        print(r)
-
-    return HttpResponse("MORO")
+def buy_error(request):
+    pass
