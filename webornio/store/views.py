@@ -63,15 +63,17 @@ def devgame(request, game_id):
             context = RequestContext(request, {'user': request.user, 'game': game})
             return HttpResponse(template.render(context))
         return HttpResponse('Ei oo sun peli')
-#TODO: ehkä varmentaminen develle
+#TODO: ehkä varmentaminen develle: pitäis olla nyt oikein. Tarkistettava
 def modifygame(request):
     if request.method == "POST":
         data = request.POST
         if request.user.is_authenticated():
+            developer = Developer.objects.get(user=request.user.id)
             gameObj = Game.objects.filter(id=data["gameid"])
-            gameObj.update(name=data["gamename"], price=data["gameprice"], url=data["gameurl"])
+            if gameObj[0].developer == developer:
+                gameObj.update(name=data["gamename"], price=data["gameprice"], url=data["gameurl"])
 
-    return HttpResponse(request.POST["gameid"])
+    return redirect('developer')
 
 def save(request):
     if request.method == "POST":
