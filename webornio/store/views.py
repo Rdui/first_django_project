@@ -170,3 +170,8 @@ def buy_cancel(request):
 
 def buy_error(request):
     pass
+def register(request):
+
+    template = loader.get_template('registration/registration_form.html')
+    context = RequestContext(request,{})
+    return HttpResponse(template.render(context))
