@@ -1,0 +1,13 @@
+##{% extends 'store/base.html' %}
+
+{% block content %}
+
+	{% if not user.is_authenticated %}
+	  <h2>You have logout</h2>
+	  <br>
+	  <h3> Thanks for visiting </h3>
+	  <br>
+	  <p>Do you wanna login again? <a href="/store/login/">Login</a></p>
+	{% endif %}
+
+{% endblock %}

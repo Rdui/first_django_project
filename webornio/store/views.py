@@ -10,8 +10,11 @@ from django.shortcuts import redirect
 
 from django.shortcuts import redirect
 
-import requests
+
+
 import logging
+
+
 
 
 from hashlib import md5
@@ -45,11 +48,14 @@ def game(request, game_id):
         return redirect('login')
 
 def games(request):
-    games = Game.objects.all()
-    template = loader.get_template("store/games.html")
-    context = RequestContext(request, {'games': games})
+    if request.user.is_authenticated:
+        games = Game.objects.all()
+        template = loader.get_template("store/games.html")
+        context = RequestContext(request, {'games': games})
 
-    return HttpResponse(template.render(context))
+        return HttpResponse(template.render(context))
+    else:
+        return redirect('login')
 
 def devgames(request):
     developer = Developer.objects.get(user=request.user.id)
@@ -116,7 +122,11 @@ def load(request, gameId):
 def login(request):
     return HttpResponse("Hei maailma, katsot login.")
 def logout(request):
-    return HttpResponse("Hei maailma, katsot logout indeksiä.")
+    template = loader.get_template('registration/logout.html')
+    context = RequestContext(request,{})
+    return HttpResponse(template.render(context))
+
+    #return HttpResponse("Hei maailma, katsot logout indeksiä.")
 
 def profile(request):
     template = loader.get_template('store/profile.html')
