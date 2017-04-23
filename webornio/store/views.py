@@ -22,8 +22,8 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def index(request):
-    template = loader.get_template('store/home.html')
-    context = RequestContext(request, {'game_url': url, 'game_id': game_id})
+    template = loader.get_template('store/index.html')
+    context = RequestContext(request, {})
 
     return HttpResponse(template.render(context))
 
