@@ -1,13 +1,15 @@
 #-*- coding:UTF-8 -*-
 from django.shortcuts import render
 from django.template import loader
-from .models import Game, SaveGame, Player, Sale, Developer
+from .models import Game, SaveGame, Player, Sale, Developer, Score
 
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import redirect
 
 from django.shortcuts import redirect
+
+from django.contrib.auth.models import User
 
 #import requests
 
@@ -196,7 +198,46 @@ def buy_cancel(request):
 def buy_error(request):
     pass
 def register(request):
+    if request.method == "POST":
+        data = request.POST
+        if data["psw"] == data ["psw-repeat"]:
+            user_ = User.objects.create_user(username=data["username"], password=data["psw"])
+            if data["users"] == "player":
+                player = Player(user = user_)
+                player.save()
+            elif data["users"] == "developer":
+                developer = Developer(user = user_)
+                developer.save()
+            return redirect("/store/login")
+        else:
+            return HttpResponse("Passwords do not match!")
 
-    template = loader.get_template('registration/registration_form.html')
-    context = RequestContext(request,{})
+    else:
+        template = loader.get_template('registration/registration_form.html')
+        context = RequestContext(request,{})
+        return HttpResponse(template.render(context))
+
+
+def highscores(request, game_id):
+    game_entry = Game.objects.get(id=game_id)
+    scores = Score.objects.filter(game=game_entry).order_by("score").reverse()
+    data = []
+    for score in scores:
+        player = score.player
+        data.append({"score": score, "username": player.user.username})
+
+    print(data)
+    template = loader.get_template('store/highscores.html')
+    context = RequestContext(request, {"data":data})
     return HttpResponse(template.render(context))
+
+def savescore(request):
+    if request.method == "POST":
+        data = request.POST
+        print(data)
+        score = data["score"]
+        game = Game.objects.get(id=data["gameId"])
+        player = Player.objects.get(user=request.user)
+        score = Score(player=player, game=game, score=score)
+        score.save()
+        return HttpResponse(status=200)

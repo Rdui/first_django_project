@@ -22,6 +22,10 @@ urlpatterns = [
     url(r'^games/buy/error/$', views.buy_error, name='buy_error'),
     url(r'^developer/game/modify/$', views.modifygame, name='modifygame'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^games/(?P<game_id>[0-9]+)/highscores/$', views.highscores, name='highscores'),
+    url(r'^api/games/load/(?P<gameId>[0-9]+)/$', views.load, name='load'),
+    url(r'^api/games/score/$', views.savescore, name='savescore'),
+
     url(r'^developer/game/addgame/$', views.addgame, name='addgame'),
     url(r'^developer/game/addgamepage/$', views.addgamepage, name='addgamepage')
 ]
