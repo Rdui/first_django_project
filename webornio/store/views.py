@@ -1,6 +1,7 @@
 #-*- coding:UTF-8 -*-
 from django.shortcuts import render
 from django.template import loader
+from django.contrib.auth.models import User
 from .models import Game, SaveGame, Player, Sale, Developer
 
 from django.http import HttpResponse
@@ -9,15 +10,20 @@ from django.shortcuts import redirect
 
 from django.shortcuts import redirect
 
-#import requests
+
+
+import logging
+
+
+
 
 from hashlib import md5
 
 import json
 
 from django.views.decorators.csrf import ensure_csrf_cookie
-@ensure_csrf_cookie
 
+@ensure_csrf_cookie
 
 def index(request):
     template = loader.get_template('store/home.html')
@@ -194,8 +200,16 @@ def buy_cancel(request):
 
 def buy_error(request):
     pass
+    
 def register(request):
+    if request.method == "POST":
+        data = request.POST
+        print("yee")
+        player = User.objects.create_user(username=data["username"], password=data["psw"])
+        player.save()
+        return redirect("/store/login")
 
-    template = loader.get_template('registration/registration_form.html')
-    context = RequestContext(request,{})
-    return HttpResponse(template.render(context))
+    else:
+        template = loader.get_template('registration/registration_form.html')
+        context = RequestContext(request,{})
+        return HttpResponse(template.render(context))
