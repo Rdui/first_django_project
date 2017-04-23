@@ -26,4 +26,6 @@ urlpatterns = [
     url(r'^api/games/load/(?P<gameId>[0-9]+)/$', views.load, name='load'),
     url(r'^api/games/score/$', views.savescore, name='savescore'),
 
+    url(r'^developer/game/addgame/$', views.addgame, name='addgame'),
+    url(r'^developer/game/addgamepage/$', views.addgamepage, name='addgamepage')
 ]

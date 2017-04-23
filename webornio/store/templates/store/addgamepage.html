@@ -1,0 +1,22 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<ul>
+  <li>
+    Hello, developer {{user}}
+    <ul>
+      <form action="../addgame/" method="POST">
+        <input type='hidden' name='csrfmiddlewaretoken' id='csrf'>
+        name: <input type="text" placeholder="Game name" name='gamename'>
+        <br>
+        price: <input type="text" placeholder="Price" name='gameprice'>
+        <br>
+        url: <input type="text" placeholder="Game url" name='gameurl'>
+        <br>
+        <input type='hidden' name='devid' value={{user.id}}>
+        <input type="submit" value="Submit">
+      </form>
+      <script> document.getElementById("csrf").value = csrftoken</script>
+    </ul>
+  </li>
+{% endblock %}
+
