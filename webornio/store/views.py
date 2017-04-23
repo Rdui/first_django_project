@@ -146,9 +146,7 @@ def load(request, gameId):
 
 
 def logout(request):
-    template = loader.get_template('registration/logout.html')
-    context = RequestContext(request,{})
-    return HttpResponse(template.render(context))
+    return redirect('login')
 
 def profile(request):
     template = loader.get_template('store/profile.html')
