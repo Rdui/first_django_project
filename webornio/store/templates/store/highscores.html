@@ -1,0 +1,13 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<table class="table">
+  <tread><tr><th>#</th><th>Score</th><th>Player</th></tr></thead>
+  {% for item in data %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{item.score.score}} </td>
+      <td> {{item.username}}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
