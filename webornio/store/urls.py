@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^games/buy/cancel/$', views.buy_cancel, name='buy_cancel'),
     url(r'^games/buy/error/$', views.buy_error, name='buy_error'),
     url(r'^developer/game/modify/$', views.modifygame, name='modifygame'),
-    url(r'^register/$', views.register, name='register')
+    url(r'^register/$', views.register, name='register'),
+    url(r'^developer/game/addgame/$', views.addgame, name='addgame'),
+    url(r'^developer/game/addgamepage/$', views.addgamepage, name='addgamepage')
 ]

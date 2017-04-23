@@ -79,6 +79,23 @@ def modifygame(request):
 
     return redirect('developer')
 
+def addgamepage(request):
+    if request.user.is_authenticated():
+        template = loader.get_template("store/addgamepage.html")
+        context = RequestContext(request, {'user': request.user})
+        return HttpResponse(template.render(context))
+
+def addgame(request):
+    if request.method == "POST":
+        data = request.POST
+        if request.user.is_authenticated():
+            developer = Developer.objects.get(user=request.user.id)
+            gameObj = Game(developer=developer, url=data["gameurl"], name=data["gamename"], price=data["gameprice"] )
+            gameObj.save()
+            return redirect('developer')
+
+    return redirect('login')
+
 def save(request):
     if request.method == "POST":
         data = request.POST
