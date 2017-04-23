@@ -45,7 +45,8 @@ def game(request, game_id):
         return redirect('login')
 
 def games(request):
-    if request.user.is_authenticated:
+    player = Player.objects.filter(user=request.user.id)
+    if request.user.is_authenticated and player.exists():
         games = Game.objects.all()
         template = loader.get_template("store/games.html")
         context = RequestContext(request, {'games': games})
