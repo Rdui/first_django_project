@@ -64,7 +64,7 @@ def devgames(request):
         else:
             return redirect('store/games')
     return redirect('login')
-
+#Show the game's info and salestatistics
 def devgame(request, game_id):
     if request.user.is_authenticated():
         game = Game.objects.get(id = game_id)
@@ -75,7 +75,7 @@ def devgame(request, game_id):
             context = RequestContext(request, {'user': request.user, 'game': game, 'sales':sales})
             return HttpResponse(template.render(context))
         return HttpResponse('Ei oo sun peli')
-#TODO: ehkä varmentaminen develle: pitäis olla nyt oikein. Tarkistettava
+#Edit the developers game
 def modifygame(request):
     if request.method == "POST":
         data = request.POST
@@ -87,12 +87,14 @@ def modifygame(request):
 
     return redirect('developer')
 
+#Addpage for new game
 def addgamepage(request):
     if request.user.is_authenticated():
         template = loader.get_template("store/addgamepage.html")
         context = RequestContext(request, {'user': request.user})
         return HttpResponse(template.render(context))
 
+#Add new game as a developer
 def addgame(request):
     if request.method == "POST":
         data = request.POST
@@ -104,6 +106,7 @@ def addgame(request):
 
     return redirect('login')
 
+#Savestate saving to database
 def save(request):
     if request.method == "POST":
         data = request.POST
@@ -122,6 +125,7 @@ def save(request):
         else:
             return HttpResponse(status=403)
 
+#Savestate load from database
 def load(request, gameId):
     if request.user.is_authenticated():
         game = Game.objects.get(id=gameId)
@@ -138,14 +142,11 @@ def load(request, gameId):
     else:
         return HttpResponse(status=403)
 
-def login(request):
-    return HttpResponse("Hei maailma, katsot login.")
+
 def logout(request):
     template = loader.get_template('registration/logout.html')
     context = RequestContext(request,{})
     return HttpResponse(template.render(context))
-
-    #return HttpResponse("Hei maailma, katsot logout indeksiä.")
 
 def profile(request):
     template = loader.get_template('store/profile.html')
@@ -160,7 +161,7 @@ def buy_game(request, game_id):
     game = game_entry
     developer = game.developer
     secret_key = "f783295fc61ae6f4c9c06ac78a61e33f"
-    pid = game_id   #TODO: vaihda yksilölliseen payment id:seen.
+    pid = game_id   
     sid = "webornio"
     amount = game.price
     # checksumstr is the string concatenated above
@@ -202,6 +203,7 @@ def buy_cancel(request):
 
 def buy_error(request):
     pass
+    
 def register(request):
     if request.method == "POST":
         data = request.POST
