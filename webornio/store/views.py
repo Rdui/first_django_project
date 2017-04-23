@@ -192,7 +192,8 @@ def buy_success(request):
     #TODO: tarkista checksum
     if (result == "success"):
         game_entry = Game.objects.get(id=pid)
-        player = Player.objects.get(user=request.user.id)
+        print(request.user.username + "LAARNIO")
+        player = Player.objects.get(user=request.user)
         purchase = Sale(game=game_entry, player=player, price=game_entry.price)
         purchase.save()
         return redirect("/store/games/" + str(game_entry.id))
