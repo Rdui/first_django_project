@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import dj_database_url
-DATABASE_URL = 'postgres://crkglzhglewaxu:a15c170b24e2cddeb350e052598442f0e183e1bd1c783d5df6dfb5e938c87803@ec2-54-225-118-55.compute-1.amazonaws.com:5432/d7f4p3bs42v0f2'
+DATABASE_URL = 'postgres://wextodvagxcack:767b0c004aec9e1e0502bc8e0791e70fcb76ec84995b913e1387ded625e7e77f@ec2-174-129-37-15.compute-1.amazonaws.com:5432/d71taotn5jq2ba'
 
 LOGIN_REDIRECT_URL="/store/profile"
 
