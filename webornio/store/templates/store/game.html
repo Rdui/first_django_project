@@ -1,6 +1,6 @@
 {% extends 'store/base.html' %}
 {% block content %}
-    <a href="./highscores/">High scores</a>
+    <a href="./highscores/">High scores {{user.username}} {{user}}</a>
     <iframe id="game" src="{{ game_url }}"></iframe>
     <script>
 

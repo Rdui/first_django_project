@@ -39,6 +39,7 @@ def game(request, game_id):
         url = game_entry.url
         template = loader.get_template('store/game.html')
         context = RequestContext(request, {'game_url': url, 'game_id': game_id})
+        print(context)
         return HttpResponse(template.render(context))
     else:
         return redirect('login')
@@ -200,7 +201,7 @@ def buy_error(request):
 def register(request):
 
     template = loader.get_template('registration/registration_form.html')
-    context = RequestContext(request,{})
+    context = RequestContext(request,{"user": request.user})
     return HttpResponse(template.render(context))
 
 def highscores(request, game_id):

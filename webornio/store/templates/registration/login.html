@@ -1,4 +1,4 @@
-##{% extends 'store/base.html' %}
+{% extends 'store/base.html' %}
 
 {% block content %}
 
@@ -11,6 +11,8 @@
 	  </form>
 
 	  <p>New user? <a href="/store/register/">Register here!</a></p>
+  {%else%}
+  <p> You are logged in as {{user.username}}. </p>
 	{% endif %}
 
 {% endblock %}
