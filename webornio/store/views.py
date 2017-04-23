@@ -54,11 +54,16 @@ def games(request):
         return redirect('login')
 
 def devgames(request):
-    developer = Developer.objects.get(user=request.user.id)
-    games = Game.objects.filter(developer=developer)
-    template = loader.get_template("store/developer.html")
-    context = RequestContext(request, {'games': games, 'user': request.user})
-    return HttpResponse(template.render(context))
+    if request.user.is_authenticated:
+        developer = Developer.objects.filter(user=request.user.id)
+        if developer.exists():
+            games = Game.objects.filter(developer=developer[0])
+            template = loader.get_template("store/developer.html")
+            context = RequestContext(request, {'games': games, 'user': request.user})
+            return HttpResponse(template.render(context))
+        else:
+            return redirect('store/games')
+    return redirect('login')
 
 def devgame(request, game_id):
     if request.user.is_authenticated():
