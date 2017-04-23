@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 
 from django.shortcuts import redirect
 
-import requests
+#import requests
 
 from hashlib import md5
 

@@ -1,7 +1,17 @@
 {% extends 'store/base.html' %}
 {% block content %}
 <ul>
-  <li>
-    {{user.username}}
-  </li>
+	<li>
+		<b>Username:</b>  {{user.username}}
+	</li>
+	<li>
+		<b>Email:</b>   {{user.email}}
+  	</li>
+  	<li>
+   		<b>User permissions:</b> {{user.user_permissions}}
+	</li>
+    <li>
+    	<b>Last login:</b>  {{user.last_login}}
+    </li>
+</ul>
 {% endblock %}
