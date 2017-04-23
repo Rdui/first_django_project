@@ -1,6 +1,7 @@
 #-*- coding:UTF-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from django_unixdatetimefield import UnixDateTimeField
 
 # Create your models here.
 class Player(models.Model):
@@ -27,6 +28,7 @@ class Sale(models.Model):
   game = models.ForeignKey(Game)
   player = models.ForeignKey(Player)
   price = models.IntegerField()
+  created = models.DateTimeField(auto_now_add=True)
   def __str__(self):
       return ("osto")
 
