@@ -2,7 +2,7 @@
 {% block content %}
 <ul>
   <li>
-    Hello, developer {{user.id}}
+    Hello, developer {{user}}
     <ul>
       <form action="../modify/" method="POST">
         <input type='hidden' name='csrfmiddlewaretoken' id='csrf'>
@@ -18,5 +18,14 @@
       </form>
       <script> document.getElementById("csrf").value = csrftoken</script>
     </ul>
+    Sales:
+    <ul>
+      {% for sale in sales %}
+      <li>Buyer: {{sale.player}}</li>
+      <li>Price: {{sale.price}}</li>
+      <li>date: TODO</li>
+      <br>
+      {%endfor%}
+    </u>
   </li>
 {% endblock %}

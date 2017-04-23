@@ -1,7 +1,6 @@
 #-*- coding:UTF-8 -*-
 from django.shortcuts import render
 from django.template import loader
-from django.contrib.auth.models import User
 from .models import Game, SaveGame, Player, Sale, Developer
 
 from django.http import HttpResponse
@@ -10,20 +9,15 @@ from django.shortcuts import redirect
 
 from django.shortcuts import redirect
 
-
-
-import logging
-
-
-
+#import requests
 
 from hashlib import md5
 
 import json
 
 from django.views.decorators.csrf import ensure_csrf_cookie
-
 @ensure_csrf_cookie
+
 
 def index(request):
     template = loader.get_template('store/home.html')
@@ -68,9 +62,10 @@ def devgame(request, game_id):
     if request.user.is_authenticated():
         game = Game.objects.get(id = game_id)
         developer = Developer.objects.get(user=request.user.id)
+        sales = Sale.objects.filter(game=game)
         if game.developer == developer:
             template = loader.get_template("store/devgame.html")
-            context = RequestContext(request, {'user': request.user, 'game': game})
+            context = RequestContext(request, {'user': request.user, 'game': game, 'sales':sales})
             return HttpResponse(template.render(context))
         return HttpResponse('Ei oo sun peli')
 #TODO: ehkä varmentaminen develle: pitäis olla nyt oikein. Tarkistettava
@@ -98,7 +93,7 @@ def addgame(request):
             developer = Developer.objects.get(user=request.user.id)
             gameObj = Game(developer=developer, url=data["gameurl"], name=data["gamename"], price=data["gameprice"] )
             gameObj.save()
-            return redirect('developer')
+            return redirect('store/developer')
 
     return redirect('login')
 
@@ -200,16 +195,8 @@ def buy_cancel(request):
 
 def buy_error(request):
     pass
-    
 def register(request):
-    if request.method == "POST":
-        data = request.POST
-        print("yee")
-        player = User.objects.create_user(username=data["username"], password=data["psw"])
-        player.save()
-        return redirect("/store/login")
 
-    else:
-        template = loader.get_template('registration/registration_form.html')
-        context = RequestContext(request,{})
-        return HttpResponse(template.render(context))
+    template = loader.get_template('registration/registration_form.html')
+    context = RequestContext(request,{})
+    return HttpResponse(template.render(context))
