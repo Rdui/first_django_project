@@ -4,7 +4,8 @@ Project plan
 
 ## Project description:
 
-Online game store for JavaScript game
+Online game store for JavaScript game \n
+
 The code is running in here: https://infinite-depths-87833.herokuapp.com/store/login/
 
 ## Technologies:
