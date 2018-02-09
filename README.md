@@ -4,7 +4,8 @@ Project plan
 
 ## Project description:
 
-Online game store for JavaScript games
+Online game store for JavaScript game
+The code is running in here: https://infinite-depths-87833.herokuapp.com/store/login/
 
 ## Technologies:
 Django, JavaScript, HTML5, CSS, Bootstrap
